@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Loading from "./Loading";
 const ListBooks = (props) => {
   const [books, setBooks] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   useEffect(() => {
     axios
       .get("http://localhost:3004/books")
-      .then((res) => {
-        setBooks(res.data);
+      .then((resBook) => {
+        setBooks(resBook.data);
         //console.log(res);
+        axios
+          .get("http://localhost:3004/categories")
+          .then((resCat) => {
+            setTimeout(() => {
+              setCategories(resCat.data);
+            }, 3000);
+          })
+          .catch((err) => console.log("categories err", err));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log("books err", err));
   }, []);
-  if (books === null) {
-    return (
-      <div>
-        <h1>Loading</h1>
-      </div>
-    );
+  if (books === null || categories === null) {
+    return <Loading />;
   }
 
   return (
@@ -32,14 +38,19 @@ const ListBooks = (props) => {
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => (
-            <tr>
-              <td>{book.name}</td>
-              <td>{book.author}</td>
-              <td>Katogori</td>
-              <td>{book.isbn}</td>
-            </tr>
-          ))}
+          {books.map((book) => {
+            const category = categories.find(
+              (cat) => cat.id === book.categoryId
+            );
+            return (
+              <tr>
+                <td>{book.name}</td>
+                <td>{book.author}</td>
+                <td>{category.name}</td>
+                <td>{book.isbn}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

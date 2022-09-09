@@ -3,10 +3,10 @@ import React from "react";
 const Header = (props) => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-primary">
+      <nav className="navbar navbar-expand-lg bg-dark ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Library
+          <a className="navbar-brand text-white" href="#">
+            Library App
           </a>
           <button
             className="navbar-toggler"
