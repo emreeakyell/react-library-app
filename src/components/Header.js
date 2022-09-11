@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-dark ">
         <div className="container-fluid">
-          <a className="navbar-brand text-white" href="#">
+          <Link to="/" className="navbar-brand text-white">
             Library App
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,18 +23,13 @@ const Header = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a
+                <Link
+                  to=""
                   className="nav-link active text-white"
                   aria-current="page"
-                  href="#"
                 >
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" href="#">
-                  Link
-                </a>
+                  Books
+                </Link>
               </li>
             </ul>
           </div>
