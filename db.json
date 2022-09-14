@@ -22,11 +22,11 @@
       "categoryId": "3"
     },
     {
-      "id": 1662847403711,
-      "name": "Random Book",
+      "name": "Random Book Edit 1",
       "author": "Random Author",
+      "categoryId": "1",
       "isbn": "",
-      "categoryId": "1"
+      "id": 1662847403711
     }
   ],
   "categories": [

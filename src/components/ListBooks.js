@@ -85,6 +85,12 @@ const ListBooks = (props) => {
                     >
                       Delete
                     </button>
+                    <Link
+                      to={`edit-book/${book.id}`}
+                      className="btn btn-outline-success mx-2"
+                    >
+                      Edit
+                    </Link>
                   </div>
                 </td>
               </tr>
