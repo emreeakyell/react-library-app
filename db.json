@@ -1,32 +1,25 @@
 {
   "books": [
     {
-      "id": 1,
-      "name": "Yaban",
-      "author": "Yakup Kadri Karaosmanoğlu",
-      "isbn": "11111111111",
+      "id": 1663278217807,
+      "name": "Book 1 ",
+      "author": "Author 1",
+      "isbn": "1111111111",
       "categoryId": "1"
     },
     {
-      "id": 2,
-      "name": "Notes From Underground",
-      "author": "Dostoyevski",
-      "isbn": "11111111112",
-      "categoryId": "2"
+      "id": 1663279498818,
+      "name": "Book 2",
+      "author": "Author 2",
+      "isbn": "2222222222",
+      "categoryId": "1"
     },
     {
-      "id": 3,
-      "name": "Essays",
-      "author": "Dostoyevski",
-      "isbn": "11111111113",
+      "id": 1663279739497,
+      "name": "Book 3",
+      "author": "Author 3",
+      "isbn": "33333333333",
       "categoryId": "3"
-    },
-    {
-      "name": "Random Book Edit 1",
-      "author": "Random Author",
-      "categoryId": "1",
-      "isbn": "",
-      "id": 1662847403711
     }
   ],
   "categories": [

@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
+
 const ListBooks = (props) => {
+  const navigate = useNavigate();
   const [books, setBooks] = useState(null);
   const [categories, setCategories] = useState(null);
   const [didUpdate, setDidUpdate] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalDelete, setModalDelete] = useState(null);
 
   useEffect(() => {
     axios
@@ -18,20 +24,21 @@ const ListBooks = (props) => {
           .then((resCat) => {
             setTimeout(() => {
               setCategories(resCat.data);
-            }, 3000);
+            }, 500);
           })
           .catch((err) => console.log("categories err", err));
       })
       .catch((err) => console.log("books err", err));
-  }, [setDidUpdate]);
+  }, [didUpdate]);
 
   const deleteBook = (id) => {
     //console.log(id);
     axios
       .delete(`http://localhost:3004/books/${id}`)
       .then((res) => {
-        console.log("deleted", res);
+        //console.log("deleted", res);
         setDidUpdate(!didUpdate);
+        setShowModal(false);
       })
       .catch((err) => console.log(err));
   };
@@ -44,7 +51,7 @@ const ListBooks = (props) => {
     <div className=" container my-5">
       <div className="my-3 d-flex justify-content-end">
         <Link to="/add-book" className="btn btn-dark">
-          Kitap Ekle
+          Add Book
         </Link>
       </div>
       <table className="table table-striped table-dark">
@@ -81,7 +88,11 @@ const ListBooks = (props) => {
                     <button
                       type="button"
                       className="btn btn-outline-danger btn-sm"
-                      onClick={() => deleteBook(book.id)}
+                      onClick={() => {
+                        setShowModal(true);
+                        //deleteBook(book.id);
+                        setModalDelete(book.id);
+                      }}
                     >
                       Delete
                     </button>
@@ -98,6 +109,14 @@ const ListBooks = (props) => {
           })}
         </tbody>
       </table>
+      {showModal === true && (
+        <Modal
+          confirmModel={() => deleteBook(modalDelete)}
+          setShowModal={setShowModal}
+          title={`Delete Page`}
+          comment={`Are you sure ?`}
+        />
+      )}
     </div>
   );
 };
