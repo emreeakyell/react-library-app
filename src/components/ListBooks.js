@@ -4,14 +4,18 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
 const ListBooks = (props) => {
+  const generalState = useSelector((state) => state);
+  //console.log(generalState);
   const navigate = useNavigate();
   const [books, setBooks] = useState(null);
   const [categories, setCategories] = useState(null);
   const [didUpdate, setDidUpdate] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(null);
+  const [modalTitle, setModalTitle] = useState("");
 
   useEffect(() => {
     axios
@@ -92,6 +96,7 @@ const ListBooks = (props) => {
                         setShowModal(true);
                         //deleteBook(book.id);
                         setModalDelete(book.id);
+                        setModalTitle(book.name);
                       }}
                     >
                       Delete
@@ -111,9 +116,9 @@ const ListBooks = (props) => {
       </table>
       {showModal === true && (
         <Modal
-          confirmModel={() => deleteBook(modalDelete)}
-          setShowModal={setShowModal}
-          title={`Delete Page`}
+          onConfirm={() => deleteBook(modalDelete)}
+          onCancel={setShowModal}
+          title={modalTitle}
           comment={`Are you sure ?`}
         />
       )}

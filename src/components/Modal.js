@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Modal = (props) => {
-  const { setShowModal, confirmModel, title, comment } = props;
+  const modalState = useSelector((state) => state);
+  console.log("Hi Modal", modalState);
+  const { onCancel, onConfirm, title, comment } = props;
   return (
-    <div
+    <button
+      onClick={onCancel}
       style={{
         position: "absolute",
         top: 0,
@@ -14,6 +18,7 @@ const Modal = (props) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        cursor: "default",
       }}
     >
       <div
@@ -28,20 +33,20 @@ const Modal = (props) => {
         <p className="text-center">{comment}</p>
         <div>
           <button
-            onClick={() => setShowModal(false)}
+            onClick={() => onCancel(false)}
             className="btn btn-sm btn-danger mx-3 px-5"
           >
             Cancel
           </button>
           <button
-            onClick={confirmModel}
+            onClick={onConfirm}
             className="btn btn-sm btn-outline-success"
           >
             Confirm
           </button>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 
