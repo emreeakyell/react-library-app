@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Components/Loading";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EditBook = (props) => {
+  const { categoriesState } = useSelector((state) => state);
   const navigate = useNavigate();
   const params = useParams();
   console.log("params", params);
@@ -24,13 +26,13 @@ const EditBook = (props) => {
         setAuthor(res.data.author);
         setIsbn(res.data.isbn);
         setCategory(res.data.categoryId);
-        axios
-          .get("http://localhost:3004/categories")
-          .then((res) => {
-            setCategories(res.data);
-          })
-          .catch((err) => console.log("categories err"(err)));
-        console.log(res.data);
+        // axios
+        //   .get("http://localhost:3004/categories")
+        //   .then((res) => {
+        //     setCategories(res.data);
+        //   })
+        //   .catch((err) => console.log("categories err"(err)));
+        // console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -58,7 +60,7 @@ const EditBook = (props) => {
       .catch((err) => console.log("edit err", err));
   };
 
-  if (categories === null) {
+  if (categoriesState.success !== true) {
     return <Loading />;
   }
 
@@ -106,7 +108,7 @@ const EditBook = (props) => {
                 <option value={""} selected>
                   Category
                 </option>
-                {categories.map((cat) => {
+                {categoriesState.categories.map((cat) => {
                   return (
                     <option key={cat.id} value={cat.id}>
                       {cat.name}

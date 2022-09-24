@@ -2,23 +2,26 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const AddBookForm = (props) => {
+  const dispatch = useDispatch();
+  const { categoriesState } = useSelector((state) => state);
   const navigate = useNavigate();
   const [categories, setCategories] = useState(null);
   const [bookName, setBookName] = useState("");
   const [author, setAuthor] = useState("");
   const [isbn, setIsbn] = useState("");
   const [category, setCategory] = useState("");
-  useEffect(() => {
-    axios
-      .get("http://localhost:3004/categories")
-      .then((res) => {
-        console.log(res);
-        setCategories(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3004/categories")
+  //     .then((res) => {
+  //       console.log(res);
+  //       setCategories(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,6 +40,7 @@ const AddBookForm = (props) => {
     axios
       .post("http://localhost:3004/books", newBook)
       .then((res) => {
+        dispatch({ type: "ADD_BOOK", payload: newBook });
         setBookName("");
         setAuthor("");
         setIsbn("");
@@ -46,7 +50,7 @@ const AddBookForm = (props) => {
       .catch((err) => console.log(err));
   };
 
-  if (categories == null) {
+  if (categoriesState.success !== true) {
     return <Loading />;
   }
 
@@ -92,7 +96,7 @@ const AddBookForm = (props) => {
               <option value={""} selected>
                 Category
               </option>
-              {categories.map((cat) => {
+              {categoriesState.categories.map((cat) => {
                 return <option value={cat.id}>{cat.name}</option>;
               })}
             </select>

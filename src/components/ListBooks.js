@@ -7,32 +7,32 @@ import Modal from "./Modal";
 import { useSelector } from "react-redux";
 
 const ListBooks = (props) => {
-  const generalState = useSelector((state) => state);
-  //console.log(generalState);
+  const { categoriesState, booksState } = useSelector((state) => state);
+  console.log(categoriesState, booksState);
   const navigate = useNavigate();
-  const [books, setBooks] = useState(null);
-  const [categories, setCategories] = useState(null);
+  // const [books, setBooks] = useState(null);
+  // const [categories, setCategories] = useState(null);
   const [didUpdate, setDidUpdate] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalDelete, setModalDelete] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3004/books")
-      .then((resBook) => {
-        setBooks(resBook.data);
-        //console.log(res);
-        axios
-          .get("http://localhost:3004/categories")
-          .then((resCat) => {
-            setTimeout(() => {
-              setCategories(resCat.data);
-            }, 500);
-          })
-          .catch((err) => console.log("categories err", err));
-      })
-      .catch((err) => console.log("books err", err));
+    // axios
+    //   .get("http://localhost:3004/books")
+    //   .then((resBook) => {
+    //     setBooks(resBook.data);
+    //     //console.log(res);
+    //     // axios
+    //     //   .get("http://localhost:3004/categories")
+    //     //   .then((resCat) => {
+    //     //     setTimeout(() => {
+    //     //       setCategories(resCat.data);
+    //     //     }, 500);
+    //     //   })
+    //     //   .catch((err) => console.log("categories err", err));
+    //   })
+    //   .catch((err) => console.log("books err", err));
   }, [didUpdate]);
 
   const deleteBook = (id) => {
@@ -47,7 +47,7 @@ const ListBooks = (props) => {
       .catch((err) => console.log(err));
   };
 
-  if (books === null || categories === null) {
+  if (booksState.success !== true || categoriesState.success !== true) {
     return <Loading />;
   }
 
@@ -71,8 +71,8 @@ const ListBooks = (props) => {
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => {
-            const category = categories.find(
+          {booksState.books.map((book) => {
+            const category = categoriesState.categories.find(
               (cat) => cat.id === book.categoryId
             );
             return (

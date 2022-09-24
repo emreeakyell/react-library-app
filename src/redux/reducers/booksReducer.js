@@ -1,27 +1,28 @@
 const initalState = {
   start: false,
   success: false,
-  categories: [],
+  books: [],
   fail: false,
   errorMassage: "",
 };
 
-const categoriesReducer = (state = initalState, action) => {
+const booksReducer = (state = initalState, action) => {
   switch (action.type) {
-    case "FETCH_CATEGORİES_START":
+    case "FETCH_BOOKS_START":
       return {
         ...state,
         start: true,
       };
-    case "FETCH_CATEGORİES_SUCCESS":
+
+    case "FETCH_BOOKS_SUCCESS":
       return {
         ...state,
         start: false,
         success: true,
-        categories: action.payload,
+        books: action.payload,
       };
 
-    case "FETCH_CATEGORİES_FAIL":
+    case "FETCH_BOOK_FAİL":
       return {
         ...state,
         start: false,
@@ -29,8 +30,15 @@ const categoriesReducer = (state = initalState, action) => {
         errorMassage: action.payload,
       };
 
+    case "ADD_BOOK":
+      return {
+        ...state,
+        books: [...state.books, action.payload],
+      };
+
     default:
       return state;
   }
 };
-export default categoriesReducer;
+
+export default booksReducer;
