@@ -27,13 +27,6 @@
       "author": "redux",
       "isbn": "",
       "categoryId": "1"
-    },
-    {
-      "id": 1664027416432,
-      "name": "test",
-      "author": "test",
-      "isbn": "",
-      "categoryId": "1"
     }
   ],
   "categories": [

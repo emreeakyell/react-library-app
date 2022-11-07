@@ -18,7 +18,7 @@ const ListBooks = (props) => {
   const [modalTitle, setModalTitle] = useState("");
 
   useEffect(() => {
-    // axios
+    // axios redux kurduk gerek kalmadı
     //   .get("http://localhost:3004/books")
     //   .then((resBook) => {
     //     setBooks(resBook.data);
